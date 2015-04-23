@@ -21,7 +21,6 @@ var getBgColor = function (opt) {
 module.exports = {
   create: function (tiles, opt) {
     return new Promise(function (resolve, reject) {
-      console.log(getBgColor(opt));
       var sprite = gm(opt.width, opt.height, getBgColor(opt));
       var type = opt.type || 'PNG';
       sprite.options({imageMagick: useImagemagick(opt.options)});

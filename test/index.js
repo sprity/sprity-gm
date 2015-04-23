@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var should = require('chai').should();
+var gm = require('gm');
 
 require('mocha');
 
@@ -40,16 +41,27 @@ describe('sprity-gm', function () {
     gmProc.create(tiles, {
       width: 136,
       height: 268,
-      bgColor: [0, 0, 0, 0],
+      bgColor: [255, 255, 255, 0],
       type: 'png',
       log: log,
       options: {}
     }).then(function (image) {
+      image.should.have.property('type', 'png');
+      image.should.have.property('mimeType', 'image/png');
       image.should.have.property('width', 132);
       image.should.have.property('height', 268);
       image.should.have.property('contents');
-      image.contents.toString().should.equal(fs.readFileSync('test/expected/image.png').toString());
-      done();
+      fs.writeFileSync('test/expected/result.png', image.contents);
+      gm.compare('test/expected/image.png', 'test/expected/result.png', function (err, isEqual, equality) {
+        fs.unlinkSync('test/expected/result.png');
+        if (err) {
+          throw err;
+        }
+        else {
+          isEqual.should.be.true;
+        }
+        done();
+      });
     });
   });
 
@@ -62,11 +74,22 @@ describe('sprity-gm', function () {
       log: log,
       options: {}
     }).then(function (image) {
+      image.should.have.property('type', 'jpg');
+      image.should.have.property('mimeType', 'image/jpg');
       image.should.have.property('width', 132);
       image.should.have.property('height', 268);
       image.should.have.property('contents');
-      image.contents.toString().should.equal(fs.readFileSync('test/expected/image.jpg').toString());
-      done();
+      fs.writeFileSync('test/expected/result.jpg', image.contents);
+      gm.compare('test/expected/image.jpg', 'test/expected/result.jpg', function (err, isEqual, equality) {
+        fs.unlinkSync('test/expected/result.jpg');
+        if (err) {
+          throw err;
+        }
+        else {
+          isEqual.should.be.true;
+        }
+        done();
+      });
     });
   });
 
@@ -83,11 +106,22 @@ describe('sprity-gm', function () {
       log: log,
       options: {}
     }).then(function (image) {
+      image.should.have.property('type', 'png');
+      image.should.have.property('mimeType', 'image/png');
       image.should.have.property('width', 65);
       image.should.have.property('height', 132);
       image.should.have.property('contents');
-      image.contents.toString().should.equal(fs.readFileSync('test/expected/image-scaled.png').toString());
-      done();
+      fs.writeFileSync('test/expected/result-image-scaled.png', image.contents);
+      gm.compare('test/expected/image-scaled.png', 'test/expected/result-image-scaled.png', function (err, isEqual, equality) {
+        fs.unlinkSync('test/expected/result-image-scaled.png');
+        if (err) {
+          throw err;
+        }
+        else {
+          isEqual.should.be.true;
+        }
+        done();
+      });
     });
   });
 
