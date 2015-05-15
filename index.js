@@ -59,7 +59,7 @@ module.exports = {
   },
   scale: function (base, opt) {
     return new Promise(function (resolve, reject) {
-      var type = opt.type || 'PNG';
+      var type = base.type || 'PNG';
       gm(base.contents)
         .options({imageMagick: useImagemagick(opt.options)})
         .scale(opt.width, opt.height)
@@ -74,8 +74,8 @@ module.exports = {
               }
               else {
                 resolve({
-                  type: type,
-                  mimeType: 'image/' + type,
+                  type: type.toLowerCase(),
+                  mimeType: 'image/' + type.toLowerCase(),
                   contents: new Buffer(buffer),
                   width: size && size.width ? size.width : opt.width,
                   height: size && size.height ? size.height : opt.height
