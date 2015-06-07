@@ -5,15 +5,17 @@ var color = require('color');
 var gm = require('gm');
 
 var useImagemagick = function (options) {
-  if (options['gm-use-imagemagick'] === 'true' || options['gm-use-imagemagick'] === true) {
+  if (options && (options['gm-use-imagemagick'] === 'true' || options['gm-use-imagemagick'] === true)) {
     return true;
   }
   return false;
 };
 
 var getBgColor = function (opt) {
-  if (opt.bgColor[3] === 0 && opt.type !== 'jpg') {
-    return 'transparent';
+  if (opt.options) {
+    if (opt.bgColor[3] === 0 && opt.options.format !== 'jpg') {
+      return 'transparent';
+    }
   }
   return color().rgb(opt.bgColor[0], opt.bgColor[1], opt.bgColor[2]).hexString();
 };
@@ -22,7 +24,7 @@ module.exports = {
   create: function (tiles, opt) {
     return new Promise(function (resolve, reject) {
       var sprite = gm(opt.width, opt.height, getBgColor(opt));
-      var type = opt.type || 'PNG';
+      var type = opt.options && opt.options.format ? opt.options.format : 'PNG';
       sprite.options({imageMagick: useImagemagick(opt.options)});
       sprite._in = ['-background', getBgColor(opt)];
 

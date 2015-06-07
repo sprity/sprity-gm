@@ -42,9 +42,10 @@ describe('sprity-gm', function () {
       width: 136,
       height: 268,
       bgColor: [255, 255, 255, 0],
-      type: 'png',
       log: log,
-      options: {}
+      options: {
+        format: 'png'
+      }
     }).then(function (image) {
       image.should.have.property('type', 'png');
       image.should.have.property('mimeType', 'image/png');
@@ -70,9 +71,10 @@ describe('sprity-gm', function () {
       width: 136,
       height: 268,
       bgColor: [255, 255, 255, 100],
-      type: 'jpg',
       log: log,
-      options: {}
+      options: {
+        format: 'jpg'
+      }
     }).then(function (image) {
       image.should.have.property('type', 'jpg');
       image.should.have.property('mimeType', 'image/jpg');
@@ -102,9 +104,7 @@ describe('sprity-gm', function () {
       scale: 0.5,
       width: 136 / 2,
       height: 264 / 2,
-      type: 'png',
-      log: log,
-      options: {}
+      log: log
     }).then(function (image) {
       image.should.have.property('type', 'png');
       image.should.have.property('mimeType', 'image/png');
