@@ -36,6 +36,8 @@ Other formats supported by GraphicsMagick or ImageMagick may also work.
 ## Options
 
 * **gm-use-imagemagick:** use [ImageMagick](http://www.imagemagick.org/) instead of [GraphicsMagick](http://www.graphicsmagick.org/) [*Default:* false]
+* **gm-units** see [http://www.graphicsmagick.org/GraphicsMagick.html#details-units] [*Default:* 'PixelsPerInch']
+* **gm-depth** see [http://www.graphicsmagick.org/GraphicsMagick.html#details-treedepth] [*Default:* 2]
 
 ## Usage
 
