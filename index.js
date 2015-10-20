@@ -64,7 +64,9 @@ module.exports = {
       var type = base.type || 'PNG';
       gm(base.contents)
         .options({imageMagick: useImagemagick(opt.options)})
-        .scale(opt.width, opt.height)
+        .resize(opt.width, opt.height, "!")
+        .units(opt.units ? opt.units : opt.options['gm-units'] || 'PixelsPerInch')
+        .treeDepth(opt.depth ? opt.depth : opt.options['gm-depth'] || '2')
         .toBuffer(type.toUpperCase(), function (err, buffer) {
           if (err) {
             reject(err);
