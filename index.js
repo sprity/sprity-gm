@@ -41,20 +41,22 @@ module.exports = {
             reject(err);
           }
           else {
-            gm(buffer).size(function (e, size) {
-              if (err) {
-                reject(err);
-              }
-              else {
-                resolve({
-                  type: type,
-                  mimeType: 'image/' + type,
-                  contents: new Buffer(buffer),
-                  width: size && size.width ? size.width : opt.width,
-                  height: size && size.height ? size.height : opt.height
-                });
-              }
-            });
+            gm(buffer)
+              .options({imageMagick: useImagemagick(opt.options)})
+              .size(function (e, size) {
+                if (err) {
+                  reject(err);
+                }
+                else {
+                  resolve({
+                    type: type,
+                    mimeType: 'image/' + type,
+                    contents: new Buffer(buffer),
+                    width: size && size.width ? size.width : opt.width,
+                    height: size && size.height ? size.height : opt.height
+                  });
+                }
+              });
           }
         });
     });
@@ -70,20 +72,22 @@ module.exports = {
             reject(err);
           }
           else {
-            gm(buffer).size(function (e, size) {
-              if (err) {
-                reject(err);
-              }
-              else {
-                resolve({
-                  type: type.toLowerCase(),
-                  mimeType: 'image/' + type.toLowerCase(),
-                  contents: new Buffer(buffer),
-                  width: size && size.width ? size.width : opt.width,
-                  height: size && size.height ? size.height : opt.height
-                });
-              }
-            });
+            gm(buffer)
+              .options({imageMagick: useImagemagick(opt.options)})
+              .size(function (e, size) {
+                if (err) {
+                  reject(err);
+                }
+                else {
+                  resolve({
+                    type: type.toLowerCase(),
+                    mimeType: 'image/' + type.toLowerCase(),
+                    contents: new Buffer(buffer),
+                    width: size && size.width ? size.width : opt.width,
+                    height: size && size.height ? size.height : opt.height
+                  });
+                }
+              });
           }
         });
     });
